@@ -48,7 +48,7 @@ export const VerificationCode: React.FC<VerificationCodeProps> = ({
 			<Typography type="title" className="mb-4 text-center font-bold">
 				Verification Code
 			</Typography>
-			<Typography type="subTitle" className="mb-4 text-center">
+			<Typography type="sub-title" className="mb-4 text-center">
 				Enter the 4-digit code sent to your email
 			</Typography>
 			<div className="grid grid-flow-col gap-6 w-full mb-6 justify-center">
@@ -90,11 +90,11 @@ export const VerificationCode: React.FC<VerificationCodeProps> = ({
 				className="mb-[34px]"
 				// label={isLoading ? 'Loading...' : 'Confirm'}
 				size="large"
-				fill
+				decoration="fill"
 				onClick={() => onSubmit(code.join(''))}
 				disabled={!isFilled || isLoading}
 			>
-				<Typography type="smallTitle" className="font-bold">
+				<Typography type="title-small" className="font-bold">
 					{isLoading ? 'Loading...' : 'Confirm'}
 				</Typography>
 			</Button>

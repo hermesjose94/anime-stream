@@ -1,8 +1,7 @@
-import { useUser } from 'hooks/user';
-import { LayoutDashboard } from 'components/layout';
-import { getSession } from 'next-auth/client';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/client';
 import { UserType } from 'interfaces';
+import { LayoutDashboard } from 'components/layout';
 
 const Dashboard = () => {
 	return (

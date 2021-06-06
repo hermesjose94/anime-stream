@@ -3,7 +3,7 @@ module.exports = {
 	purge: [
 		'./pages/**/*.{js,ts,jsx,tsx}',
 		'./components/**/*.{js,ts,jsx,tsx}',
-		'./hooks/use-modal.tsx',
+		'./hooks/modal/modal.tsx',
 	],
 	darkMode: false,
 	theme: {
@@ -84,18 +84,19 @@ module.exports = {
 			},
 		},
 	},
-	// variants: {
-	// 	extend: {
-	// 		backgroundColor: ['disabled'],
-	// 		borderColor: ['disabled'],
-	// 		borderStyle: ['disabled'],
-	// 		cursor: ['disabled'],
-	// 		fontWeight: ['hover'],
-	// 		textColor: ['disabled'],
-	// 		opacity: ['disabled'],
-	// 		placeholderColor: ['disabled'],
-	// 	},
-	// },
+	variants: {
+		extends: {
+			backgroundOpacity: ['active'],
+			// 		backgroundColor: ['disabled'],
+			// 		borderColor: ['disabled'],
+			// 		borderStyle: ['disabled'],
+			// 		cursor: ['disabled'],
+			// 		fontWeight: ['hover'],
+			// 		textColor: ['disabled'],
+			// 		opacity: ['disabled'],
+			// 		placeholderColor: ['disabled'],
+		},
+	},
 	plugins: [
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/forms'),

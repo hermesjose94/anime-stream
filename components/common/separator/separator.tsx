@@ -1,12 +1,15 @@
+import clsx from 'clsx';
 import * as React from 'react';
 import { Typography } from '../typography';
 
 export interface SeparatorProps {
 	text?: string;
+	color?: string;
 }
 
 export const Separator: React.FC<SeparatorProps> = ({
 	text = 'or',
+	color = 'bg-white',
 	children,
 }) => {
 	return (
@@ -18,7 +21,7 @@ export const Separator: React.FC<SeparatorProps> = ({
 				<div className="relative flex justify-center">
 					<Typography
 						type="sub-title-small"
-						className="text-center text-gray-400 px-6 bg-white text-sm"
+						className={clsx('text-center text-gray-400 px-6 text-sm', color)}
 					>
 						{children || text}
 					</Typography>

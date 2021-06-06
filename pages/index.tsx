@@ -13,10 +13,10 @@ import clsx from 'clsx';
 // import Skeleton from 'react-loading-skeleton';
 
 const Home = () => {
-	const { user } = useUser();
+	const { user, isLoading: isLoadingUser } = useUser();
 
 	return (
-		<Layout withHeader>
+		<Layout withHeader isLoading={isLoadingUser}>
 			<div className="center flex flex-col items-center justify-center px-14 py-5 w-full">
 				<Logo className="mb-4" />
 				<div className="mb-11 w-full">
