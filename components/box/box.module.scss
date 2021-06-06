@@ -1,0 +1,18 @@
+@import 'variables';
+
+.box {
+	$widthMap: (
+		1200px: 200px,
+		992px: 100px,
+		768px: 50px,
+		576px: 30px,
+	);
+	$heightMap: (
+		1200px: 200px,
+		992px: 100px,
+		768px: 50px,
+		576px: 30px,
+	);
+	@include poly-fluid-sizing('width', $widthMap);
+	@include poly-fluid-sizing('height', $heightMap);
+}

@@ -1,0 +1,103 @@
+@import 'variables';
+
+//circulo
+$range-handle-color: var(--color-white) !default;
+$range-handle-color-hover: var(--color-primary) !default;
+$range-handle-color-border: var(--color-primary) !default;
+$range-handle-size: 20px !default;
+
+//barra
+$range-track-height: 12px !default;
+
+.rangeSlider__range {
+	-webkit-appearance: none;
+	width: 80%;
+	height: $range-track-height;
+	border-radius: 5px;
+	outline: none;
+	padding: 0;
+	margin: 0;
+
+	// Range Handle
+	&::-webkit-slider-thumb {
+		appearance: none;
+		width: $range-handle-size;
+		height: $range-handle-size;
+		border-radius: 50%;
+		background: $range-handle-color;
+		cursor: pointer;
+		transition: background 0.15s ease-in-out;
+		border: 1px solid $range-handle-color-border;
+
+		&:hover {
+			background: $range-handle-color-hover;
+		}
+	}
+
+	&:active::-webkit-slider-thumb {
+		background: $range-handle-color-hover;
+	}
+
+	// &::-webkit-progress-value {
+	// 	background-color: $range-track-color-process;
+	// 	height: $range-track-height;
+	// }
+
+	// &::-webkit-progress-bar {
+	// 	background-color: $range-track-color-process;
+	// 	height: $range-track-height;
+	// }
+
+	// &::-moz-range-progress {
+	// 	background-color: $range-track-color-process;
+	// 	height: $range-track-height;
+	// 	border-radius: 5px;
+	// }
+
+	&::-moz-range-thumb {
+		appearance: none;
+		width: $range-handle-size;
+		height: $range-handle-size;
+		border-radius: 50%;
+		background: $range-handle-color;
+		cursor: pointer;
+		transition: background 0.15s ease-in-out;
+		border: 1px solid $range-handle-color-border;
+
+		&:hover {
+			background: $range-handle-color-hover;
+		}
+	}
+
+	&:active::-moz-range-thumb {
+		background: $range-handle-color-hover;
+	}
+
+	// Focus state
+	&:focus {
+		&::-webkit-slider-thumb {
+			box-shadow: none;
+		}
+	}
+}
+
+// @media (max-width: 1279px) {
+// 	.rangeSlider__range {
+// 		height: 13px;
+// 		width: calc(100% - (#{30 + 80px}));
+// 		&::-webkit-slider-thumb {
+// 			width: 32px;
+// 			height: 32px;
+// 		}
+// 	}
+// }
+
+// @media (max-width: 639px) {
+// 	.rangeSlider {
+// 		display: flex;
+// 		flex-direction: column;
+// 	}
+// 	.rangeSlider__range {
+// 		width: 100%;
+// 	}
+// }

@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+:root {
+	--color-primary: #1c394c;
+	--color-secondary: #2f2050;
+	--color-active: #3b82f6;
+	--color-alert-success: #22c55e;
+	--color-alert-error: #dc2626;
+	--color-white: #ffffff;
+	--color-black: #000000;
+	--color-facebook: #4267b2;
+	--color-gray-50: #f9fafb;
+	--color-gray-100: #f3f4f6;
+	--color-gray-200: #e5e7eb;
+	--color-gray-300: #d1d5db;
+	--color-gray-400: #9ca3af;
+	--color-gray-500: #6b7280;
+	--color-gray-600: #4b5563;
+	--color-gray-700: #374151;
+	--color-gray-800: #1f2937;
+	--color-gray-900: #111827;
+}
+
+.light {
+	--color-primary: #1c394c;
+	--color-secondary: #2f2050;
+	--color-active: #3b82f6;
+	--color-alert-success: #22c55e;
+	--color-alert-error: #dc2626;
+	--color-white: #ffffff;
+	--color-black: #000000;
+	--color-facebook: #4267b2;
+	--color-gray-50: #f9fafb;
+	--color-gray-100: #f3f4f6;
+	--color-gray-200: #e5e7eb;
+	--color-gray-300: #d1d5db;
+	--color-gray-400: #9ca3af;
+	--color-gray-500: #6b7280;
+	--color-gray-600: #4b5563;
+	--color-gray-700: #374151;
+	--color-gray-800: #1f2937;
+	--color-gray-900: #111827;
+}
+
+.dark {
+	--color-primary: #1c394c;
+	--color-secondary: #2f2050;
+	--color-active: #3b82f6;
+	--color-alert-success: #22c55e;
+	--color-alert-error: #dc2626;
+	--color-white: #ffffff;
+	--color-black: #000000;
+	--color-facebook: #4267b2;
+	--color-gray-50: #f9fafb;
+	--color-gray-100: #f3f4f6;
+	--color-gray-200: #e5e7eb;
+	--color-gray-300: #d1d5db;
+	--color-gray-400: #9ca3af;
+	--color-gray-500: #6b7280;
+	--color-gray-600: #4b5563;
+	--color-gray-700: #374151;
+	--color-gray-800: #1f2937;
+	--color-gray-900: #111827;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.hide-scroll-bar::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	..hide-scroll-bar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+}

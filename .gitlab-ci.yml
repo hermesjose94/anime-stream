@@ -1,0 +1,50 @@
+stages:
+  - deploy
+  
+before_script:
+  - apt-get update -qq
+  - apt-get install -qq git dos2unix
+  - mkdir ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - echo $SSH_BASTION_KEY > pem_bastion_64.pem
+  - cat pem_bastion_64.pem | base64 -d > ~/pem_bastion.pem
+  - echo $SSH_INSTANCE_KEY > pem_instance_64.pem
+  - cat pem_instance_64.pem | base64 -d > ~/pem_instance.pem
+  - echo $CONFIG |base64 -d > ~/CONFIG
+  - echo "ProxyCommand ssh -i ~/pem_bastion.pem -p 22 ec2-user@$IP_BASTION nc %h %p" >> ~/CONFIG
+  - cat ~/CONFIG
+  - chmod 400 ~/pem_bastion.pem && chmod 400 ~/pem_instance.pem
+
+
+deploy_develop:
+  type: deploy
+  environment:
+    name: develop
+    url: app-dev.miraapp.io
+  script:
+    - echo ssh -F ~/CONFIG  $IP_INSTANCE $CI_COMMIT_REF_NAME "CONNECTION COMMAND"
+    - ssh -F ~/CONFIG  $IP_INSTANCE "sudo service mira-web-app stop && cd mira-web-app/ && git checkout develop && git pull && npm i && npm run build && sudo service mira-web-app start && exit"
+  only:
+    - develop
+
+deploy_staging:
+  type: deploy
+  environment:
+    name: staging
+    url: app-stg.miraapp.io
+  script:
+    - echo ssh -F ~/CONFIG  $IP_INSTANCE $CI_COMMIT_REF_NAME "CONNECTION COMMAND"
+    - ssh -F ~/CONFIG  $IP_INSTANCE "sudo service mira-web-app stop && cd mira-web-app/ && git checkout staging && git pull && npm i && npm run build && sudo service mira-web-app start && exit"
+  only:
+    - staging
+
+deploy_master:
+  type: deploy
+  environment:
+    name: master
+    url: app.miraapp.io
+  script:
+    - echo ssh -F ~/CONFIG  $IP_INSTANCE $CI_COMMIT_REF_NAME "CONNECTION COMMAND"
+    - ssh -F ~/CONFIG  $IP_INSTANCE "sudo service mira-web-app stop && cd mira-web-app/ && git checkout master && git pull && npm i && npm run build && sudo service mira-web-app start && exit"
+  only:
+    - master
