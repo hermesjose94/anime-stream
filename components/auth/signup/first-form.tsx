@@ -93,7 +93,7 @@ export const FirstForm: React.FC<FirstFormProps> = ({
 			<div className="flex items-center justify-center mt-9 w-full">
 				<Button
 					label="Sign up"
-					fill
+					decoration="fill"
 					size="large"
 					type="submit"
 					disabled={!isDirty || !isValid || !watch('check')}

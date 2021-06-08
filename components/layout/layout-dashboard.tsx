@@ -1,6 +1,10 @@
 import { Fragment, useState } from 'react';
+import { useUser } from 'hooks/user';
+import { useRouter } from 'next/router';
 import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
+import Image from 'next/image';
+import Link from 'next/link';
 import {
 	CalendarIcon,
 	FolderIcon,
@@ -8,23 +12,19 @@ import {
 	InboxIcon,
 	MenuIcon,
 	UsersIcon,
-	XIcon,
 	BookOpenIcon,
+	XIcon,
 } from '@heroicons/react/outline';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Images, UserType } from 'interfaces';
+import { Images } from 'interfaces';
 import { Typography } from 'components/common/typography';
-import { useRouter } from 'next/router';
 import { Loading } from 'components/loading';
-import { useUser } from 'hooks/user';
 
 const navigation = [
 	{ name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
-	{ name: 'Users', href: '/', icon: UsersIcon },
-	{ name: 'Animes', href: '/', icon: FolderIcon },
-	{ name: 'Season', href: '/', icon: CalendarIcon },
-	{ name: 'Categories', href: '/', icon: InboxIcon },
+	{ name: 'Users', href: '/dashboard/users', icon: UsersIcon },
+	{ name: 'Animes', href: '/dashboard/animes', icon: FolderIcon },
+	{ name: 'Seasons', href: '/dashboard/seasons', icon: CalendarIcon },
+	{ name: 'Categories', href: '/dashboard/categories', icon: InboxIcon },
 	{ name: 'Guide Styles', href: '/dashboard/guide-styles', icon: BookOpenIcon },
 ];
 interface LayoutDashboardProps {
@@ -37,13 +37,14 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 	children,
 }) => {
 	const { user, isLoading: loadingUser } = useUser();
+	const router = useRouter();
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	const defaultAvatar = user
 		? user.avatar === 'avatar.png'
 			? Images.avatar
 			: user.avatar
 		: Images.avatar;
-	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	const background = {
 		background:
@@ -60,7 +61,7 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 				<Dialog
 					as="div"
 					static
-					className="fixed inset-0 flex z-40 md:hidden"
+					className="fixed inset-0 flex z-40 lg:hidden"
 					open={sidebarOpen}
 					onClose={setSidebarOpen}
 				>
@@ -73,7 +74,7 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+						<Dialog.Overlay className="fixed inset-0 bg-transparent-600" />
 					</Transition.Child>
 					<Transition.Child
 						as={Fragment}
@@ -85,30 +86,11 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 						leaveTo="-translate-x-full"
 					>
 						<div
-							className="relative flex-1 flex flex-col max-w-xs w-full"
+							className="relative flex-1 flex flex-col  w-full md:max-w-xs"
 							style={background}
 						>
-							<Transition.Child
-								as={Fragment}
-								enter="ease-in-out duration-300"
-								enterFrom="opacity-0"
-								enterTo="opacity-100"
-								leave="ease-in-out duration-300"
-								leaveFrom="opacity-100"
-								leaveTo="opacity-0"
-							>
-								<div className="absolute top-0 right-0 -mr-12 pt-2">
-									<button
-										className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-										onClick={() => setSidebarOpen(false)}
-									>
-										<span className="sr-only">Close sidebar</span>
-										<XIcon className="h-6 w-6 text-white" aria-hidden="true" />
-									</button>
-								</div>
-							</Transition.Child>
 							<div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-								<div className="flex-shrink-0 flex items-center px-4">
+								<div className="flex-shrink-0 flex items-center justify-between px-4">
 									<Link href="/">
 										<a
 											className={clsx(
@@ -123,18 +105,24 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 											/>
 										</a>
 									</Link>
+									<button
+										className="ml-1 flex items-center justify-center h-8 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+										onClick={() => setSidebarOpen(false)}
+									>
+										<span className="sr-only">Close sidebar</span>
+										<XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+									</button>
 								</div>
 								<nav className="mt-5 px-2 space-y-1">
 									{navigation.map((item) => {
-										const router = useRouter();
 										const active = router.pathname === item.href;
 										return (
 											<Link key={item.name} href={item.href}>
 												<a
 													className={clsx(
 														active
-															? 'bg-active text-white'
-															: 'text-white hover:bg-active hover:bg-opacity-75',
+															? 'bg-status-active text-white'
+															: 'text-white hover:bg-status-active',
 														'group flex items-center px-2 py-2 text-base font-medium rounded-md'
 													)}
 												>
@@ -170,21 +158,19 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 										>
 											{user?.username}
 										</Typography>
+										<Typography type="caption" className="text-white">
+											{user?.email}
+										</Typography>
 									</div>
 								</div>
 							</div>
 						</div>
 					</Transition.Child>
-					<div className="flex-shrink-0 w-14" aria-hidden="true">
-						{/* Force sidebar to shrink to fit close icon */}
-					</div>
 				</Dialog>
 			</Transition.Root>
 
-			{/* Static sidebar for desktop */}
-			<div className="hidden md:flex md:flex-shrink-0" style={background}>
+			<div className="hidden lg:flex lg:flex-shrink-0" style={background}>
 				<div className="flex flex-col w-64">
-					{/* Sidebar component, swap this element with another sidebar if you like */}
 					<div className="flex flex-col h-0 flex-1">
 						<div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
 							<div className="flex items-center flex-shrink-0 px-4">
@@ -205,15 +191,14 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 							</div>
 							<nav className="mt-5 flex-1 px-2 space-y-1">
 								{navigation.map((item) => {
-									const router = useRouter();
 									const active = router.pathname === item.href;
 									return (
 										<Link key={item.name} href={item.href}>
 											<a
 												className={clsx(
 													active
-														? 'bg-active text-white'
-														: 'text-white hover:bg-active hover:bg-opacity-75',
+														? 'bg-status-active text-white'
+														: 'text-white hover:bg-status-active',
 													'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
 												)}
 											>
@@ -258,14 +243,20 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 				</div>
 			</div>
 			<div className="flex flex-col w-0 flex-1 overflow-hidden">
-				<div className="md:hidden pl-1 py-1 sm:pl-3 sm:py-3" style={background}>
+				<div
+					className="lg:hidden pl-1 pr-3 py-1 sm:pl-3 sm:py-3 flex items-center justify-between"
+					style={background}
+				>
 					<button
-						className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-white hover:text-active focus:outline-none"
+						className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-white hover:text-status-active focus:outline-none"
 						onClick={() => setSidebarOpen(true)}
 					>
 						<span className="sr-only">Open sidebar</span>
 						<MenuIcon className="h-6 w-6" aria-hidden="true" />
 					</button>
+					<div className={'h-8 w-auto sm:h-10'}>
+						<Image width={110} height={32} src={Images.logo} />
+					</div>
 				</div>
 				<main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
 					<div className="py-6">

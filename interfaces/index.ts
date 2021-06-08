@@ -65,3 +65,10 @@ export type UpdatedUserType = {
 	email: string;
 	fullname: string;
 };
+
+export type PaginationType = {
+	currentPage: number;
+	totalPages: number;
+	pageLimit: number;
+	totalRecords: number;
+};

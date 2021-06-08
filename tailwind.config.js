@@ -14,20 +14,23 @@ module.exports = {
 		colors: {
 			primary: 'var(--color-primary)',
 			secondary: 'var(--color-secondary)',
-			active: 'var(--color-active)',
 			white: 'var(--color-white)',
 			black: 'var(--color-black)',
-			alert: {
-				success: 'var(--color-alert-success)',
-				error: 'var(--color-alert-error)',
+			status: {
+				active: 'var(--color-status-active)',
+				success: 'var(--color-status-success)',
+				'success-100': 'var(--color-status-success-100)',
+				error: 'var(--color-status-error)',
+				'error-100': 'var(--color-status-error-100)',
+				warning: 'var(--color-status-warning)',
+				'warning-100': 'var(--color-status-warning-100)',
+				complete: 'var(--color-status-complete)',
+				'complete-100': 'var(--color-status-complete-100)',
 			},
 			facebook: 'var(--color-facebook)',
-			transparent: 'rgba(0, 0, 0, 0)',
-			'transparent-color': {
-				gray: {
-					200: 'var(--transparent-gray-200)',
-					800: 'var(--transparent-gray-800)',
-				},
+			transparent: {
+				0: 'var(--color-transparent)',
+				600: 'var(--color-transparent-600)',
 			},
 			gray: {
 				50: 'var(--color-gray-50)',

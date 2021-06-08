@@ -93,7 +93,7 @@ export const SecondForm: React.FC<SecondFormProps> = ({
 			<div className="flex items-center justify-center mt-48 w-full">
 				<Button
 					label="Continue"
-					fill
+					decoration="fill"
 					size="large"
 					type="submit"
 					disabled={!isValid || !watch('gender') || !watch('country')}

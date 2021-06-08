@@ -6,13 +6,18 @@ const apiURL = process.env.NEXT_PUBLIC_HASURA_API as string;
 const client = new GraphQLClient(apiURL);
 
 export const getUser = async (
-	token: string
+	token: string,
+	id: string
 	// variables: any | undefined
 ): Promise<UserType> => {
-	const user = await client.request(GET_USER, undefined, {
-		'content-type': 'application/json',
-		Authorization: `Bearer ${token}`,
-	});
+	const user = await client.request(
+		GET_USER,
+		{ id: id },
+		{
+			'content-type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		}
+	);
 
 	return user.users[0];
 };

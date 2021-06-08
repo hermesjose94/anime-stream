@@ -3,11 +3,17 @@
 :root {
 	--color-primary: #1c394c;
 	--color-secondary: #2f2050;
-	--color-active: #3b82f6;
-	--color-alert-success: #22c55e;
-	--color-alert-error: #dc2626;
 	--color-white: #ffffff;
 	--color-black: #000000;
+	--color-status-active: #3b82f6;
+	--color-status-success: #a7f3d0;
+	--color-status-success-100: #059669;
+	--color-status-error: #f87171;
+	--color-status-error-100: #b91c1c;
+	--color-status-warning: #fde68a;
+	--color-status-warning-100: #f59e0b;
+	--color-status-complete: #ddd6fe;
+	--color-status-complete-100: #7c3aed;
 	--color-facebook: #4267b2;
 	--color-gray-50: #f9fafb;
 	--color-gray-100: #f3f4f6;
@@ -19,16 +25,24 @@
 	--color-gray-700: #374151;
 	--color-gray-800: #1f2937;
 	--color-gray-900: #111827;
+	--color-transparent: rgba(0, 0, 0, 0);
+	--color-transparent-600: rgba(75, 85, 99, 0.5);
 }
 
 .light {
 	--color-primary: #1c394c;
 	--color-secondary: #2f2050;
-	--color-active: #3b82f6;
-	--color-alert-success: #22c55e;
-	--color-alert-error: #dc2626;
 	--color-white: #ffffff;
 	--color-black: #000000;
+	--color-status-active: #3b82f6;
+	--color-status-success: #a7f3d0;
+	--color-status-success-100: #059669;
+	--color-status-error: #f87171;
+	--color-status-error-100: #b91c1c;
+	--color-status-warning: #fde68a;
+	--color-status-warning-100: #f59e0b;
+	--color-status-complete: #ddd6fe;
+	--color-status-complete-100: #7c3aed;
 	--color-facebook: #4267b2;
 	--color-gray-50: #f9fafb;
 	--color-gray-100: #f3f4f6;
@@ -40,16 +54,24 @@
 	--color-gray-700: #374151;
 	--color-gray-800: #1f2937;
 	--color-gray-900: #111827;
+	--color-transparent: rgba(0, 0, 0, 0);
+	--color-transparent-600: rgba(75, 85, 99, 0.75);
 }
 
 .dark {
 	--color-primary: #1c394c;
 	--color-secondary: #2f2050;
-	--color-active: #3b82f6;
-	--color-alert-success: #22c55e;
-	--color-alert-error: #dc2626;
 	--color-white: #ffffff;
 	--color-black: #000000;
+	--color-status-active: #3b82f6;
+	--color-status-success: #a7f3d0;
+	--color-status-success-100: #059669;
+	--color-status-error: #f87171;
+	--color-status-error-100: #b91c1c;
+	--color-status-warning: #fde68a;
+	--color-status-warning-100: #f59e0b;
+	--color-status-complete: #ddd6fe;
+	--color-status-complete-100: #7c3aed;
 	--color-facebook: #4267b2;
 	--color-gray-50: #f9fafb;
 	--color-gray-100: #f3f4f6;
@@ -61,6 +83,8 @@
 	--color-gray-700: #374151;
 	--color-gray-800: #1f2937;
 	--color-gray-900: #111827;
+	--color-transparent: rgba(0, 0, 0, 0);
+	--color-transparent-600: rgba(75, 85, 99, 0.75);
 }
 
 @tailwind base;

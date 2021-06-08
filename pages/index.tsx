@@ -13,7 +13,7 @@ import clsx from 'clsx';
 // import Skeleton from 'react-loading-skeleton';
 
 const Home = () => {
-	const { user, isLoading: isLoadingUser } = useUser();
+	const { user, isLoading: isLoadingUser, isError } = useUser();
 
 	return (
 		<Layout withHeader isLoading={isLoadingUser}>
@@ -56,7 +56,7 @@ const Home = () => {
 						</>
 					) : (
 						<div className="w-full flex-col flex justify-center items-center">
-							{/* <div
+							<div
 								className="p-4 flex items-center group hover:bg-active cursor-pointer"
 								onClick={() => {
 									signout();
@@ -72,7 +72,7 @@ const Home = () => {
 								<span className="ml-3 text-base font-medium text-white">
 									Logout
 								</span>
-							</div> */}
+							</div>
 							<Typography type="title">Construccion...</Typography>
 						</div>
 					)}
