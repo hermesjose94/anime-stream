@@ -89,7 +89,7 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 							className="relative flex-1 flex flex-col  w-full md:max-w-xs"
 							style={background}
 						>
-							<div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
+							<div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto hide-scroll-bar">
 								<div className="flex-shrink-0 flex items-center justify-between px-4">
 									<Link href="/">
 										<a
@@ -172,7 +172,7 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 			<div className="hidden lg:flex lg:flex-shrink-0" style={background}>
 				<div className="flex flex-col w-64">
 					<div className="flex flex-col h-0 flex-1">
-						<div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+						<div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto hide-scroll-bar">
 							<div className="flex items-center flex-shrink-0 px-4">
 								<Link href="/">
 									<a
@@ -258,12 +258,12 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 						<Image width={110} height={32} src={Images.logo} />
 					</div>
 				</div>
-				<main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
+				<main className="flex-1 relative z-0 overflow-y-auto hide-scroll-bar focus:outline-none">
 					<div className="py-6">
 						<div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 							<h1 className="text-2xl font-semibold">{title}</h1>
 						</div>
-						<div className="max-w-7xl mx-auto p-4 sm:p-6 md:p-8">
+						<div className="rounded-lg m-4 p-4 sm:p-6 md:p-8 bg-white">
 							{children}
 						</div>
 					</div>

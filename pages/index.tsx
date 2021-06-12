@@ -7,7 +7,7 @@ import { useUser } from 'hooks/user';
 import { Layout } from 'components/layout';
 import { Logo } from 'components/logo';
 // import Image from 'next/image';
-import { Button } from 'components/common/button';
+// import { Button } from 'components/common/button';
 import { LogoutIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 // import Skeleton from 'react-loading-skeleton';

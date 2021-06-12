@@ -533,8 +533,8 @@ export const Header = () => {
 									<Link href="/auth/signup">
 										<a
 											className={clsx(
-												'ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-status-active',
-												'hover:bg-white hover:text-status-active'
+												'ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-status-active rounded-md shadow-sm text-base font-medium text-white bg-status-active',
+												'hover:bg-white hover:text-status-active hover:border-white'
 											)}
 										>
 											Sign up

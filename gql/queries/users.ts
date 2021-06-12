@@ -29,16 +29,49 @@ export const GET_USER = gql`
 	}
 `;
 
-export const GET_USERS = gql`
-	query GET_USER {
-		users {
-			id
-			email
-			fullname
-			username
-			role
-			avatar
-			avatar_id
-		}
+export const GET_USERS = (role?: string) => {
+	if (role) {
+		return gql`
+			query GET_USERS($limit: Int, $offset: Int, $role: String!) {
+				users_aggregate(where: { role: { _eq: $role } }) {
+					aggregate {
+						count
+					}
+				}
+				users(
+					limit: $limit
+					offset: $offset
+					order_by: { fullname: asc }
+					where: { role: { _eq: $role } }
+				) {
+					id
+					email
+					fullname
+					username
+					role
+					avatar
+					avatar_id
+				}
+			}
+		`;
+	} else {
+		return gql`
+			query GET_USERS($limit: Int, $offset: Int) {
+				users_aggregate {
+					aggregate {
+						count
+					}
+				}
+				users(limit: $limit, offset: $offset, order_by: { fullname: asc }) {
+					id
+					email
+					fullname
+					username
+					role
+					avatar
+					avatar_id
+				}
+			}
+		`;
 	}
-`;
+};

@@ -109,7 +109,7 @@ const Profile = () => {
 		if (user) {
 			setIsLoading(true);
 			mutationUser.mutate({
-				token: token,
+				token: token || '',
 				id: user.id,
 				email: data.email,
 				fullname: data.fullname,
@@ -152,9 +152,6 @@ const Profile = () => {
 
 	return (
 		<Layout withHeader isLoading={loadingUser}>
-			{/* {mutation.isLoading && 'Adding todo...'}
-			{mutation.isError ? <div>An error occurred: {mutation.error}</div> : null}
-			{mutation.isSuccess ? <div>Todo added!</div> : null} */}
 			<div className="flex flex-col items-center justify-center px-14 py-5 w-full max-w-5xl mx-auto">
 				<div className="flex w-full items-center justify-start">
 					<Typography type="title">Edit Profile</Typography>

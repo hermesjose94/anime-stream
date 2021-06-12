@@ -126,7 +126,7 @@ const Pagination: React.FC<PaginationProps> = ({
 		evt.preventDefault();
 		gotoPage(currentPage + pageNeighbours * 2 + 1);
 	};
-
+	if (pages.length <= 1) return null;
 	return (
 		<nav
 			className="my-2 relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
