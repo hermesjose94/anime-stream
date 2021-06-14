@@ -27,7 +27,7 @@ export const Input: React.FC<
 			<div className={clsx(styles.input)}>
 				<Typography
 					type="label"
-					className={clsx({ 'text-alert-error': error }, 'font-bold')}
+					className={clsx({ 'text-status-error': error }, 'font-bold')}
 				>
 					{title}
 				</Typography>
@@ -38,7 +38,7 @@ export const Input: React.FC<
 					autoComplete="off"
 					className={clsx(
 						{
-							'border-alert-error placeholder-alert-error text-alert-error': error,
+							'border-status-error placeholder-status-error text-status-error': error,
 						},
 						{ 'mb-6': !error },
 						{ 'px-4': !leftImg && !rightImg },
@@ -56,9 +56,9 @@ export const Input: React.FC<
 				/>
 
 				{error && error.message && (
-					<span className="flex items-center mt-2 text-alert-error font-montserrat">
+					<span className="flex items-center mt-2 text-status-error font-montserrat">
 						<div className="mr-1 w-4 h-4">
-							<ExclamationCircleIcon className="w-4 text-alert-error" />
+							<ExclamationCircleIcon className="w-4 text-status-error" />
 						</div>
 						<Typography type="caption">{error.message}</Typography>
 					</span>

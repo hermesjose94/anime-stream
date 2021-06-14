@@ -13,6 +13,7 @@ export interface InputProps {
 	rules?: Record<string, unknown>;
 	rightImg?: React.ReactNode;
 	leftImg?: React.ReactNode;
+	hideTitle?: boolean;
 	rightClick?: () => void;
 	leftClick?: () => void;
 	onChangeState?: (val: any) => void;

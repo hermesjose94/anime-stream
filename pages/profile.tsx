@@ -1,30 +1,29 @@
 import * as React from 'react';
-import clsx from 'clsx';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/client';
+import Image from 'next/image';
+import clsx from 'clsx';
 import { useToasts } from 'react-toast-notifications';
+import { useMutation, useQueryClient } from 'react-query';
 import { useUser } from 'hooks/user';
-import { Images, UserType } from 'interfaces';
+import { useModal } from 'hooks/modal';
+import { Images, Media, UserType } from 'interfaces';
 import { Layout } from 'components/layout';
 import { Typography } from 'components/common/typography';
-import { PasswordForm, UserForm } from 'components/profile';
+import { PasswordForm, UserForm } from 'components/user';
 import { Button } from 'components/common/button';
 import { uploadImage } from 'lib/upload-file';
-import { updatedAvatar, updatedUser } from 'api/put';
-// import Skeleton from 'react-loading-skeleton';
-import Image from 'next/image';
 import { GET_USER } from 'api';
-import { useMutation, useQueryClient } from 'react-query';
-
-type Media = {
-	url: string;
-	file: File;
-};
+import { updatedAvatar, updatedUser, updatedPassword } from 'api';
+import { ImageCrop } from 'components/image-crop';
 
 const Profile = () => {
 	const { user, token, isLoading: loadingUser } = useUser();
+	const { Modal, hide, isShow, show } = useModal();
 	const { addToast } = useToasts();
+	const queryClient = useQueryClient();
 	const [avatar, setAvatar] = React.useState<Media>();
+	const [avatarCrop, setAvatarCrop] = React.useState<Media>();
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [saveAvatar, setSaveAvatar] = React.useState(false);
 	const [initialData, setInitialData] = React.useState({
@@ -32,7 +31,6 @@ const Profile = () => {
 		email: user?.email || '',
 		username: user?.username || '',
 	});
-	const queryClient = useQueryClient();
 
 	const mutationAvatar = useMutation(updatedAvatar, {
 		onMutate: async (user) => {
@@ -60,6 +58,7 @@ const Profile = () => {
 			queryClient.invalidateQueries(GET_USER);
 		},
 	});
+
 	const mutationUser = useMutation(updatedUser, {
 		onMutate: async (user) => {
 			await queryClient.cancelQueries(GET_USER);
@@ -119,7 +118,24 @@ const Profile = () => {
 		}
 	};
 	const onSubmitPasswordForm = async (data: any) => {
-		console.log(data);
+		setIsLoading(true);
+		try {
+			const response = await updatedPassword({
+				password: data.password,
+				id: user?.id || '',
+			});
+			const json = await response.json();
+			if (json.error) {
+				addToast(json.error, { appearance: 'error' });
+			} else {
+				addToast('Password changed', {
+					appearance: 'success',
+				});
+			}
+		} catch (error) {
+			addToast(error, { appearance: 'error' });
+		}
+		setIsLoading(false);
 	};
 
 	const handleMediaUpload = (file: File) => {
@@ -131,13 +147,22 @@ const Profile = () => {
 		};
 
 		reader.readAsDataURL(file); // convert to base64 string
+		show();
+	};
+
+	const handleCropModal = (media: Media) => {
+		setAvatarCrop(media);
+		hide();
 		setSaveAvatar(true);
 	};
 
 	const uploadAvatar = async () => {
-		if (avatar && token && user) {
+		if (avatarCrop && token && user) {
 			setIsLoading(true);
-			const responseImage = await uploadImage(avatar.file, 'avatar');
+			const responseImage = await uploadImage(
+				avatarCrop.file,
+				`users/${user.username}`
+			);
 			mutationAvatar.mutate({
 				token: token,
 				id: user.id,
@@ -157,14 +182,20 @@ const Profile = () => {
 					<Typography type="title">Edit Profile</Typography>
 				</div>
 				<div className="grid grid-cols-12 w-full py-8">
-					<div className="col-span-4 flex flex-col items-center justify-start">
+					<div className="col-span-full flex flex-col items-center justify-start mb-5 md:col-span-4">
 						<div
 							className={clsx(
 								' bg-white inline-flex items-center w-32 h-32 overflow-hidden border-2 border-gray-400 rounded-full'
 							)}
 						>
 							<Image
-								src={avatar ? avatar.url : defaultAvatar}
+								src={
+									avatarCrop
+										? avatarCrop.url
+										: avatar
+										? avatar.url
+										: defaultAvatar
+								}
 								height={128}
 								width={128}
 							/>
@@ -193,6 +224,15 @@ const Profile = () => {
 									Change
 								</label>
 							</div>
+							{!saveAvatar && avatar && (
+								<div className={clsx('mt-4 flex items-center justify-center')}>
+									<Button
+										label={isLoading ? 'Loading...' : 'Crop'}
+										onClick={show}
+										disabled={isLoading}
+									/>
+								</div>
+							)}
 							<div
 								className={clsx(
 									'mt-4 flex items-center justify-center',
@@ -207,7 +247,7 @@ const Profile = () => {
 							</div>
 						</div>
 					</div>
-					<div className="col-span-8 px-10">
+					<div className="col-span-full px-10 md:col-span-8">
 						<Typography type="title-small" className="mb-8">
 							Personal
 						</Typography>
@@ -226,6 +266,15 @@ const Profile = () => {
 					</div>
 				</div>
 			</div>
+			<Modal isShow={isShow}>
+				<div className="w-full">
+					<ImageCrop
+						url={avatar ? avatar.url : defaultAvatar}
+						setImage={handleCropModal}
+						closeModal={hide}
+					/>
+				</div>
+			</Modal>
 		</Layout>
 	);
 };

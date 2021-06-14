@@ -7,11 +7,11 @@ $range-handle-color-border: var(--color-primary) !default;
 $range-handle-size: 20px !default;
 
 //barra
-$range-track-height: 12px !default;
+$range-track-height: 8px !default;
 
 .rangeSlider__range {
 	-webkit-appearance: none;
-	width: 80%;
+	width: 100%;
 	height: $range-track-height;
 	border-radius: 5px;
 	outline: none;

@@ -39,10 +39,11 @@ export const CREATE_USER_SOCIAL = gql`
 		) {
 			id
 			email
-			username
 			fullname
-			avatar
+			username
 			role
+			avatar
+			avatar_id
 		}
 	}
 `;
@@ -67,6 +68,12 @@ export const CREATE_USER = gql`
 		) {
 			returning {
 				id
+				email
+				fullname
+				username
+				role
+				avatar
+				avatar_id
 			}
 		}
 	}
@@ -114,6 +121,49 @@ export const UPDATED_USER = gql`
 				role
 				avatar
 				avatar_id
+			}
+		}
+	}
+`;
+
+export const UPDATED_PASSWORD = gql`
+	mutation UPDATED_PASSWORD($id: String, $password: String) {
+		update_users(where: { id: { _eq: $id } }, _set: { password: $password }) {
+			returning {
+				id
+				email
+				fullname
+				username
+				role
+				avatar
+				avatar_id
+			}
+		}
+	}
+`;
+
+export const UPDATED_ROLE = gql`
+	mutation UPDATED_ROLE($id: String, $role: String) {
+		update_users(where: { id: { _eq: $id } }, _set: { role: $role }) {
+			returning {
+				id
+				email
+				fullname
+				username
+				role
+				avatar
+				avatar_id
+			}
+		}
+	}
+`;
+
+export const DELETE_USER = gql`
+	mutation DELETE_USER($id: String) {
+		delete_users(where: { id: { _eq: $id } }) {
+			affected_rows
+			returning {
+				id
 			}
 		}
 	}

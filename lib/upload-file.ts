@@ -2,8 +2,8 @@ import imageCompression from 'browser-image-compression';
 import { ImageResponse } from 'interfaces';
 
 const imageCompressionOptions = {
-	maxSizeMB: 3,
-	maxWidthOrHeight: 600,
+	maxSizeMB: 300,
+	maxWidthOrHeight: 6000,
 	useWebWorker: true,
 };
 
@@ -15,22 +15,41 @@ export const uploadImage = async (
 		url: '',
 		public_id: '',
 	};
-	await imageCompression(image, imageCompressionOptions)
-		.then((compressedFile) => {
-			const formData = new FormData();
-			formData.append('file', compressedFile);
-			formData.append('folder', folder);
-			return fetch('/api/upload-image', { method: 'POST', body: formData });
-		})
-		.then((response) => response.json())
-		.then((data) => {
+	const formData = new FormData();
+	formData.append('file', image);
+	formData.append('folder', folder);
+	try {
+		const response = await fetch('/api/upload-image', {
+			method: 'POST',
+			body: formData,
+		});
+		await response.json().then((data) => {
 			if (data.secure_url !== '') {
 				uploadedImage = { url: data.secure_url, public_id: data.public_id };
 			}
-			return;
-		})
-		.catch((err) => console.error(err));
+		});
+	} catch (error) {
+		console.log(error);
+	}
 	return uploadedImage;
+	// await imageCompression(image, imageCompressionOptions)
+	// 	.then((compressedFile) => {
+	// 		const formData = new FormData();
+	// 		formData.append('file', compressedFile);
+	// 		formData.append('folder', folder);
+	// 		console.log('lo logre', { compressedFile });
+
+	// 		return fetch('/api/upload-image', { method: 'POST', body: formData });
+	// 	})
+	// 	.then((response) => response.json())
+	// 	.then((data) => {
+	// 		if (data.secure_url !== '') {
+	// 			uploadedImage = { url: data.secure_url, public_id: data.public_id };
+	// 		}
+	// 		return;
+	// 	})
+	// 	.catch((err) => console.error('aqui', err));
+	// return uploadedImage;
 };
 
 export const uploadFiles = async (images: File[]) => {

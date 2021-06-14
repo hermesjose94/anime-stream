@@ -21,6 +21,13 @@ export type ImagesType =
 	| Images.login
 	| Images.register;
 
+export type OptionType = {
+	text: string;
+	value: string;
+	disabled: boolean;
+	placeholder: boolean;
+};
+
 export type UserType = {
 	id: string;
 	email: string;
@@ -66,9 +73,30 @@ export type UpdatedUserType = {
 	fullname: string;
 };
 
+export type UpdatedPasswordType = {
+	id: string;
+	password: string;
+};
+
+export type UpdatedRoleType = {
+	token: string;
+	id: string;
+	role: string;
+};
+
+export type DeletedUserType = {
+	id: string;
+	token: string;
+};
+
 export type PaginationType = {
 	currentPage: number;
 	totalPages: number;
 	pageLimit: number;
 	totalRecords: number;
+};
+
+export type Media = {
+	url: string;
+	file: File;
 };

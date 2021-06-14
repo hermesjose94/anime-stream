@@ -18,11 +18,13 @@ const getDefaultValue = (options: OptionType[], value: string) => {
 
 export const InputList: React.FC<
 	InputProps & InputListProps & React.InputHTMLAttributes<HTMLInputElement>
-> = ({ options, myDefaultValue, handleChange, ...props }) => {
+> = ({ options, myDefaultValue, handleChange, hideTitle, ...props }) => {
 	const [selected, setSelected] = React.useState(
 		myDefaultValue ? getDefaultValue(options, myDefaultValue) : options[0]
 	);
 	React.useEffect(() => {
+		console.log(selected.value);
+
 		handleChange(selected.value);
 	}, [selected.value]);
 	return (
@@ -40,9 +42,11 @@ export const InputList: React.FC<
 				{({ open }) => (
 					<>
 						<Listbox.Label className="block">
-							<Typography type="label" className="ml-3 font-bold">
-								{props.title}
-							</Typography>
+							{!hideTitle && (
+								<Typography type="label" className="ml-3 font-bold">
+									{props.title}
+								</Typography>
+							)}
 						</Listbox.Label>
 						<div className="relative mt-2">
 							<Listbox.Button

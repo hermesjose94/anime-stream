@@ -18,6 +18,7 @@ import {
 import { Images } from 'interfaces';
 import { Typography } from 'components/common/typography';
 import { Loading } from 'components/loading';
+import { Back } from 'components/common/back';
 
 const navigation = [
 	{ name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
@@ -30,10 +31,12 @@ const navigation = [
 interface LayoutDashboardProps {
 	title: string;
 	isLoading?: boolean;
+	showBack?: boolean;
 }
 export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 	title,
 	isLoading = false,
+	showBack = false,
 	children,
 }) => {
 	const { user, isLoading: loadingUser } = useUser();
@@ -260,7 +263,8 @@ export const LayoutDashboard: React.FC<LayoutDashboardProps> = ({
 				</div>
 				<main className="flex-1 relative z-0 overflow-y-auto hide-scroll-bar focus:outline-none">
 					<div className="py-6">
-						<div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+						<div className="max-w-7xl mx-auto px-4 flex items-center justify-start sm:px-6 md:px-8">
+							{showBack && <Back />}
 							<h1 className="text-2xl font-semibold">{title}</h1>
 						</div>
 						<div className="rounded-lg m-4 p-4 sm:p-6 md:p-8 bg-white">
