@@ -12,6 +12,15 @@ module.exports = {
 			montserrat: ['Montserrat', 'sans-serif'],
 		},
 		colors: {
+			// primary: ({ opacityVariable, opacityValue }) => {
+			// 	if (opacityValue !== undefined) {
+			// 		return `rgba(var(--color-primary), ${opacityValue})`;
+			// 	}
+			// 	if (opacityVariable !== undefined) {
+			// 		return `rgba(var(--color-primary), var(${opacityVariable}, 1))`;
+			// 	}
+			// 	return `rgb(var(--color-primary))`;
+			// },
 			primary: 'var(--color-primary)',
 			secondary: 'var(--color-secondary)',
 			white: 'var(--color-white)',
