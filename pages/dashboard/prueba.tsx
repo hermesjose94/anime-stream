@@ -16,7 +16,7 @@ const Prueba = () => {
 	const [dataTable, setDataTable] = React.useState<PruebaType[]>();
 	const [directionOrder, setDirectionOrder] = React.useState(1);
 	const search = React.useRef<HTMLInputElement>(null);
-
+	
 	React.useEffect(() => {
 		setDataTable(data);
 		console.log('mirar');
