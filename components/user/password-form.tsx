@@ -15,8 +15,7 @@ export const PasswordForm: React.FC<PasswordFormProps> = ({
 	const {
 		register,
 		handleSubmit,
-		errors,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 		watch,
 	} = useForm({ mode: 'onChange' });
 

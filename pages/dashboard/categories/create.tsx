@@ -21,8 +21,7 @@ const Create = () => {
 	const {
 		register,
 		handleSubmit,
-		errors,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 	} = useForm({ mode: 'onChange' });
 
 	const rules = {
@@ -64,7 +63,7 @@ const Create = () => {
 	};
 
 	return (
-		<LayoutDashboard title="Create User" showBack>
+		<LayoutDashboard title="Create Categories" showBack>
 			<div className="flex flex-col items-center justify-center w-full max-w-5xl mx-auto">
 				<form className="w-full" onSubmit={handleSubmit(onSubmitForm)}>
 					<InputText
@@ -112,7 +111,7 @@ const Create = () => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);
-	const user = (session?.user as unknown) as UserType;
+	const user = session?.user as unknown as UserType;
 	if (session && session.user && user.role !== 'admin') {
 		return {
 			redirect: {

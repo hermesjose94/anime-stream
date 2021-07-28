@@ -445,7 +445,7 @@ export const Header = () => {
 			{/* sidebar menu profile */}
 
 			{/* navbar desktop */}
-			<div className="relative w-full bg-gradient-to-r from-secondary to-primary">
+			<div className="relative w-full" style={background}>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6">
 					<div className="flex justify-between items-center md:justify-start md:space-x-10">
 						<button

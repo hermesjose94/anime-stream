@@ -20,8 +20,10 @@ export const Input: React.FC<
 	error,
 	className,
 	customPlaceholder,
+	onChangeCustom,
 	...props
 }) => {
+	const registerInput = register(name, rules);
 	return (
 		<div className={clsx('relative flex flex-col w-full', className)}>
 			<div className={clsx(styles.input)}>
@@ -33,12 +35,18 @@ export const Input: React.FC<
 				</Typography>
 				<input
 					id={name}
-					name={name}
+					{...registerInput}
+					onChange={(e) => {
+						registerInput.onChange(e);
+						onChangeCustom && onChangeCustom(e);
+					}}
+					onBlur={registerInput.onBlur}
 					placeholder={customPlaceholder}
 					autoComplete="off"
 					className={clsx(
 						{
-							'border-status-error placeholder-status-error text-status-error': error,
+							'border-status-error placeholder-status-error text-status-error':
+								error,
 						},
 						{ 'mb-6': !error },
 						{ 'px-4': !leftImg && !rightImg },
@@ -51,7 +59,6 @@ export const Input: React.FC<
 						'disabled:placeholder-gray-800 disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-800',
 						'focus:outline-none focus:bg-transparent focus:ring-offset-transparent focus:ring-opacity-0 focus:border-gray-200 focus:ring-transparent'
 					)}
-					ref={register ? register(rules) : () => ({})}
 					{...props}
 				/>
 

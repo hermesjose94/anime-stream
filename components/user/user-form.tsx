@@ -18,8 +18,7 @@ export const UserForm: React.FC<UserFormProps> = ({
 	const {
 		register,
 		handleSubmit,
-		errors,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 		setValue,
 	} = useForm({ mode: 'onChange', defaultValues: initialData });
 

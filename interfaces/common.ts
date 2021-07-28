@@ -19,4 +19,5 @@ export interface InputProps {
 	onChangeState?: (val: any) => void;
 	setValueInput?: (name: string, text: string) => void;
 	error?: any;
+	onChangeCustom?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

@@ -82,9 +82,9 @@ export const ImageCrop: React.FC<{
 					zoom={zoom}
 					aspect={4 / 4}
 					onCropChange={setCrop}
-					onRotationChange={setRotation}
+					// onRotationChange={setRotation}
 					onCropComplete={onCropComplete}
-					onZoomChange={setZoom}
+					// onZoomChange={setZoom}
 				/>
 			</div>
 			<div className="w-full grid grid-flow-row">

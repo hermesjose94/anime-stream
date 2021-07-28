@@ -24,6 +24,7 @@ export const InputRange: React.FC<
 	...props
 }) => {
 	const [valueLabel, setValueLabel] = React.useState(defaultValue);
+	const registerInput = register(name, rules);
 
 	const handleChange = (e: any) => {
 		const val = e.target.value;
@@ -61,14 +62,16 @@ export const InputRange: React.FC<
 				<div className="flex items-center py-2">
 					<input
 						id={name}
-						name={name}
+						{...registerInput}
+						onChange={(e) => {
+							registerInput.onChange(e);
+							handleChange(e);
+						}}
 						className={styles.rangeSlider__range}
 						type="range"
-						onChange={handleChange}
 						defaultValue={defaultValue}
 						min={min}
 						max={max}
-						ref={register ? register(rules) : () => ({})}
 						{...props}
 					/>
 					<Typography

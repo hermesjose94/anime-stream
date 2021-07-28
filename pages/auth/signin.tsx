@@ -17,8 +17,7 @@ const SignIn = () => {
 	const {
 		register,
 		handleSubmit,
-		errors,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 	} = useForm({ mode: 'onChange' });
 	const router = useRouter();
 	const { addToast } = useToasts();
@@ -115,7 +114,7 @@ const SignIn = () => {
 					decoration="fill"
 					size="full"
 					type="submit"
-					disabled={!isDirty || !isValid || !!isLoading}
+					disabled={!isValid || !!isLoading}
 				/>
 			</form>
 			<div className="flex items-center justify-center mt-4 w-full">

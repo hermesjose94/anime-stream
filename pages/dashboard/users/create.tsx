@@ -1,8 +1,8 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import { getSession, useSession } from 'next-auth/client';
+import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 import { useToasts } from 'react-toast-notifications';
 import { LayoutDashboard } from 'components/layout';
 import { Button } from 'components/common/button';
@@ -16,13 +16,11 @@ import { InputPassword } from 'components/common/form/input-password';
 const Create = () => {
 	const router = useRouter();
 	const { addToast } = useToasts();
-	const queryClient = useQueryClient();
 	const [isLoading, setIsLoading] = React.useState(false);
 	const {
 		register,
 		handleSubmit,
-		errors,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 	} = useForm({ mode: 'onChange' });
 
 	const rules = {
@@ -112,7 +110,7 @@ const Create = () => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);
-	const user = (session?.user as unknown) as UserType;
+	const user = session?.user as unknown as UserType;
 	if (session && session.user && user.role !== 'admin') {
 		return {
 			redirect: {

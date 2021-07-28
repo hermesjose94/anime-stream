@@ -14,7 +14,13 @@ export const RoleForm: React.FC<PasswordFormProps> = ({
 	defaultRole,
 	isLoading,
 }) => {
-	const { register, handleSubmit, errors, watch, setValue } = useForm({
+	const {
+		register,
+		handleSubmit,
+		watch,
+		setValue,
+		formState: { errors },
+	} = useForm({
 		mode: 'onChange',
 	});
 
