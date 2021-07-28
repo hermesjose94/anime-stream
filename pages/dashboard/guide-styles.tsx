@@ -93,13 +93,6 @@ const Dashboard = () => {
 		range: {},
 	};
 
-	const setValueInput = (name: string, text: string) => {
-		setValue(name, text, {
-			shouldValidate: true,
-			shouldDirty: true,
-		});
-	};
-
 	const onSubmit = async (data: any) => {
 		console.log(data);
 	};
@@ -177,9 +170,7 @@ const Dashboard = () => {
 						rules={rules.number}
 						error={errors.number}
 						isFill={!!watch('number')}
-						setValueInput={(name, text) => {
-							setValueInput(name, text);
-						}}
+						setValueInput={setValue}
 					/>
 					<InputEmail
 						name="email"
@@ -213,9 +204,7 @@ const Dashboard = () => {
 						rules={rules.phone}
 						error={errors.phone}
 						isFill={!!watch('phone')}
-						setValueInput={(name, text) => {
-							setValueInput(name, text);
-						}}
+						setValueInput={setValue}
 					/>
 					<InputCard
 						name="card"
@@ -225,9 +214,7 @@ const Dashboard = () => {
 						rules={rules.card}
 						error={errors.card}
 						isFill={!!watch('card')}
-						setValueInput={(name, text) => {
-							setValueInput(name, text);
-						}}
+						setValueInput={setValue}
 					/>
 					<InputText
 						name="disabled"
@@ -331,9 +318,7 @@ const Dashboard = () => {
 						defaultValue={10}
 						prefix={'$'}
 						sufix={'%'}
-						setValueInput={(name, text) => {
-							setValueInput(name, text);
-						}}
+						setValueInput={setValue}
 						register={register}
 						rules={rules.range}
 					/>

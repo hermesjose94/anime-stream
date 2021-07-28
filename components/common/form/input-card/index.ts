@@ -1,1 +1,1 @@
-export * from './inputCard';
+export * from './input-card';

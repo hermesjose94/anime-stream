@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Input } from 'components/common/form/input';
 import { InputProps } from 'interfaces/common';
 
-export const InputCard: React.FC<
+export const InputPhone: React.FC<
 	InputProps & React.InputHTMLAttributes<HTMLInputElement>
 > = ({ name, setValueInput, rules, ...props }) => {
 	const [isDelete, setIsDelete] = React.useState(false);
@@ -23,34 +23,50 @@ export const InputCard: React.FC<
 		if (!isDelete) {
 			if (!isNaN(cadena)) {
 				let format: string = '';
-				//5555 4122 4282 3282 = 19
-				//4444 = 4
-				//44441111 = 8
-				//444411113333 = 12
-				//4444111133338888 = 16
-				if (cadena.length === 4) {
+				//+5 412 428 3282 = 15
+				//+58 412 428 3282 = 16
+				//5 = 1
+				//5412 = 4
+				//5412428 = 7
+				//54124283282 = 11
+				//584124283282 = 12
+				if (cadena.length === 1) {
 					newFormat = true;
-					format = cadena.replace(/([0-9]{4})/g, '$1 ');
-				} else if (cadena.length === 8) {
+					format = val.replace(/([0-9]{1})/g, '+$1 ');
+				} else if (cadena.length === 4) {
 					newFormat = true;
-					format = cadena.replace(/([0-9]{4})([0-9]{4})/g, '$1 $2 ');
+					format = cadena.replace(/([0-9]{1})([0-9]{3})/g, '+$1 $2 ');
+				} else if (cadena.length === 7) {
+					newFormat = true;
+					format = cadena.replace(
+						/([0-9]{1})([0-9]{3})([0-9]{3})/g,
+						'+$1 $2 $3 '
+					);
+				} else if (cadena.length === 11) {
+					newFormat = true;
+					format = cadena.replace(
+						/([0-9]{1})([0-9]{3})([0-9]{3})([0-9]{4})/g,
+						'+$1 $2 $3 $4'
+					);
 				} else if (cadena.length === 12) {
 					newFormat = true;
 					format = cadena.replace(
-						/([0-9]{4})([0-9]{4})([0-9]{4})/g,
-						'$1 $2 $3 '
-					);
-				} else if (cadena.length === 16) {
-					newFormat = true;
-					format = cadena.replace(
-						/([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})/g,
-						'$1 $2 $3 $4'
+						/([0-9]{2})([0-9]{3})([0-9]{3})([0-9]{4})/g,
+						'+$1 $2 $3 $4'
 					);
 				}
-				setValueInput && setValueInput(name, newFormat ? format : val);
+				setValueInput &&
+					setValueInput(name, newFormat ? format : val, {
+						shouldValidate: true,
+						shouldDirty: true,
+					});
 			} else {
 				const cadena = val.substring(0, val.length - 1);
-				setValueInput && setValueInput(name, cadena);
+				setValueInput &&
+					setValueInput(name, cadena, {
+						shouldValidate: true,
+						shouldDirty: true,
+					});
 			}
 		}
 		setIsDelete(false);
@@ -60,13 +76,13 @@ export const InputCard: React.FC<
 		return {
 			...rules,
 			maxLength: {
-				value: 19,
+				value: 16,
 				message: 'Number no valid',
 			},
-			// minLength: {
-			// 	value: 15,
-			// 	message: 'The number has at least 15 numbers',
-			// },
+			minLength: {
+				value: 15,
+				message: 'The number has at least 15 numbers',
+			},
 		};
 	}, [rules]);
 
@@ -77,7 +93,7 @@ export const InputCard: React.FC<
 				type="tel"
 				onChange={handleChange}
 				onKeyDown={onKeyDownHandler}
-				maxLength={19}
+				maxLength={16}
 				rules={finalRules}
 				{...props}
 			></Input>

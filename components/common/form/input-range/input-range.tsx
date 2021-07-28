@@ -35,7 +35,11 @@ export const InputRange: React.FC<
 		}
 		setValueLabel(val);
 		onChangeState && onChangeState(true);
-		setValueInput && setValueInput(name, val);
+		setValueInput &&
+			setValueInput(name, val, {
+				shouldValidate: true,
+				shouldDirty: true,
+			});
 	};
 
 	React.useEffect(() => {

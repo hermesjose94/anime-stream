@@ -1,4 +1,5 @@
 import React from 'react';
+import { ErrorOption } from 'react-hook-form';
 
 export interface InputProps {
 	name: string;
@@ -17,7 +18,15 @@ export interface InputProps {
 	rightClick?: () => void;
 	leftClick?: () => void;
 	onChangeState?: (val: any) => void;
-	setValueInput?: (name: string, text: string) => void;
 	error?: any;
+	setValueInput?: (
+		name: string,
+		value: any,
+		config?: Partial<{
+			shouldValidate: boolean;
+			shouldDirty: boolean;
+		}>
+	) => void;
 	onChangeCustom?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	setError?: (name: string, error: ErrorOption) => void;
 }

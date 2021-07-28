@@ -9,7 +9,11 @@ export const InputNumber: React.FC<
 		const val = e.target.value;
 		if (!!isNaN(val)) {
 			const cadena = val.substring(0, val.length - 1);
-			setValueInput && setValueInput(name, cadena);
+			setValueInput &&
+				setValueInput(name, cadena, {
+					shouldValidate: true,
+					shouldDirty: true,
+				});
 		}
 	};
 
