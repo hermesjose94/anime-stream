@@ -219,6 +219,7 @@ const Dashboard = () => {
 					<InputText
 						name="disabled"
 						title="Disabled"
+						register={register}
 						disabled
 						isFill={!!watch('disabled')}
 					/>
@@ -232,7 +233,12 @@ const Dashboard = () => {
 						Agree to your terms of service and privacy policy and I confirm that
 						I am at least 18 years old.
 					</InputCheck>
-					<InputCheck name="check2" className="mb-3" disabled>
+					<InputCheck
+						name="check2"
+						className="mb-3"
+						disabled
+						register={register}
+					>
 						I am disabled
 					</InputCheck>
 					<InputRadio
@@ -255,7 +261,13 @@ const Dashboard = () => {
 					>
 						I am input radio 2
 					</InputRadio>
-					<InputRadio name="radio2" disabled className="mb-3" value="3">
+					<InputRadio
+						name="radio2"
+						disabled
+						className="mb-3"
+						value="3"
+						register={register}
+					>
 						I am disabled
 					</InputRadio>
 					<InputList
