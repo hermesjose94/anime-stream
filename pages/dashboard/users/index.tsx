@@ -22,7 +22,7 @@ const Categories = () => {
 	const { token } = useUser();
 	const queryClient = useQueryClient();
 	const { addToast } = useToasts();
-	const [limitPage, setLimintPage] = React.useState(10);
+	const [limitPage, setLimintPage] = React.useState(1);
 	const [offsetPage, setOffsetPage] = React.useState(0);
 	const [userDelete, setUserDelete] = React.useState<UserType | null>(null);
 	const { Modal, hide, isShow, show } = useModal();
@@ -76,6 +76,8 @@ const Categories = () => {
 
 	const onPageChanged = (data: PaginationType) => {
 		const offset = data.pageLimit * data.currentPage - data.pageLimit;
+		console.log(offset);
+
 		setOffsetPage(offset);
 	};
 
@@ -285,6 +287,7 @@ const Categories = () => {
 								<Pagination
 									totalRecords={data?.total || 1}
 									onPageChanged={onPageChanged}
+									offsetPage={offsetPage + 1}
 									pageLimit={limitPage}
 								/>
 							</div>
@@ -327,7 +330,7 @@ const Categories = () => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getSession(context);
-	const user = (session?.user as unknown) as UserType;
+	const user = session?.user as unknown as UserType;
 	if (session && session.user && user.role !== 'admin') {
 		return {
 			redirect: {

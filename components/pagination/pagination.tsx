@@ -12,6 +12,7 @@ interface PaginationProps {
 	totalRecords: number;
 	pageLimit?: number;
 	pageNeighbours?: number;
+	offsetPage?: number;
 	onPageChanged: (data: PaginationType) => void;
 }
 
@@ -20,10 +21,11 @@ const Pagination: React.FC<PaginationProps> = ({
 	pageLimit = 10,
 	pageNeighbours = 1, //0 1 2
 	onPageChanged,
+	offsetPage,
 }) => {
 	const LEFT_PAGE = -1;
 	const RIGHT_PAGE = -2;
-	const [currentPage, setCurrentPage] = React.useState(1);
+	const [currentPage, setCurrentPage] = React.useState(offsetPage || 1);
 	const [pages, setPages] = React.useState<number[]>([]);
 	const totalPages = React.useMemo(() => {
 		return Math.ceil(totalRecords / pageLimit);
