@@ -83,6 +83,7 @@ const Categories = () => {
 
 	const handleChangeLimitPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const val = e.target.value;
+		setOffsetPage(0);
 		setLimintPage(Number(val));
 	};
 
