@@ -24,6 +24,7 @@ const Categories = () => {
 	const { addToast } = useToasts();
 	const [limitPage, setLimintPage] = React.useState(1);
 	const [offsetPage, setOffsetPage] = React.useState(0);
+	const [currentPage, setCurrentPage] = React.useState(1);
 	const [userDelete, setUserDelete] = React.useState<UserType | null>(null);
 	const { Modal, hide, isShow, show } = useModal();
 	const [role, setRole] = React.useState<'user' | 'admin' | undefined>(
@@ -76,9 +77,8 @@ const Categories = () => {
 
 	const onPageChanged = (data: PaginationType) => {
 		const offset = data.pageLimit * data.currentPage - data.pageLimit;
-		console.log(offset);
-
 		setOffsetPage(offset);
+		setCurrentPage(data.currentPage);
 	};
 
 	const handleChangeLimitPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -288,7 +288,7 @@ const Categories = () => {
 								<Pagination
 									totalRecords={data?.total || 1}
 									onPageChanged={onPageChanged}
-									offsetPage={offsetPage + 1}
+									page={currentPage}
 									pageLimit={limitPage}
 								/>
 							</div>
